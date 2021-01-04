@@ -1,15 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { changeName, changeAge, initializeForm } from "../actions";
-import { response } from "express";
 
 const AddForm = ({ store }) => {
-  const { name, age } = store.getState().form; // storeからフォームの内容を取得
+  const { name, age } = store.getState().form;
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios
-      .interceptors("/api/characters", {
+      .post("/api/characters", {
         name,
         age,
       })
