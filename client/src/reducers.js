@@ -3,18 +3,17 @@ import { CHANGE_NAME, CHANGE_AGE, INITIALIZE_FORM } from "./actions";
 
 const initialState = {
   form: {
-    // AddFormに入力されている文字列
     name: "",
     age: "",
   },
   characters: {
-    isFetching: false, // サーバーからキャラクターのリストを取ってきている最中かどうか
-    characterArray: [], // キャラクターのデータを入れるArray
+    isFetching: false,
+    characterArray: [],
   },
 };
 
 const formReducer = (state = initialState.form, action) => {
-  switch (action.rype) {
+  switch (action.type) {
     case CHANGE_NAME:
       return {
         ...state,
@@ -32,7 +31,7 @@ const formReducer = (state = initialState.form, action) => {
   }
 };
 
-const characterReducer = (state = initialState.characters, action) => {
+const charactersReducer = (state = initialState.characters, action) => {
   switch (action.type) {
     default:
       return state;
@@ -41,7 +40,7 @@ const characterReducer = (state = initialState.characters, action) => {
 
 const rootReducer = combineReducers({
   form: formReducer,
-  characters: characterReducer,
+  characters: charactersReducer,
 });
 
 export default rootReducer;
