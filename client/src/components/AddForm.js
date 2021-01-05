@@ -1,22 +1,33 @@
 import React from "react";
 import axios from "axios";
-import { changeName, changeAge, initializeForm } from "../actions";
+import {
+  changeName,
+  changeAge,
+  initializeForm,
+  requestData,
+  receiveDataSuccess,
+  receiveDataFailed,
+} from "../actions";
 
 const AddForm = ({ store }) => {
   const { name, age } = store.getState().form;
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    store.dispatch(requestData());
     axios
       .post("/api/characters", {
         name,
         age,
       })
       .then((response) => {
-        console.log(response);
         store.dispatch(initializeForm());
+        const characterArray = response.data;
+        store.dispatch(receiveDataSuccess(characterArray));
       })
       .catch((err) => {
         console.log(new Error(err));
+        store.dispatch(receiveDataFailed());
       });
   };
 
